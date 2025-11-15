@@ -1,0 +1,76 @@
+@import './theme.css';
+
+/* Basic reset */
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  background: radial-gradient(circle at 10% 10%, rgba(14,165,233,0.06), transparent 5%), var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+}
+
+.auth-card {
+  background: var(--surface);
+  width: min(var(--card-width), 96%);
+  padding: calc(var(--space-lg) + var(--space-sm));
+  border-radius: var(--radius);
+  box-shadow: 0 6px 20px rgba(2,6,23,0.07);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.auth-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.auth-form { display:flex; flex-direction:column; gap: var(--space-sm); }
+.auth-form label { font-size: .9rem; color: var(--muted); display:flex; flex-direction:column; gap: var(--space-xs); }
+.auth-form input {
+  height: 44px;
+  padding: 0 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  outline: none;
+}
+.auth-form input::placeholder { color: rgba(75,85,99,0.45); }
+
+.btn-primary {
+  margin-top: var(--space-md);
+  display:inline-flex; align-items:center; justify-content:center;
+  padding: var(--btn-padding);
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(90deg, var(--accent), var(--accent));
+  color: var(--accent-contrast);
+  font-weight: 600;
+}
+.btn-primary:hover { filter: brightness(0.95); }
+
+.auth-note { text-align: center; margin: 0; color: var(--muted); font-size: .9rem; }
+.auth-note a { color: var(--accent); text-decoration: none; }
+
+/* Tiny responsive tweak */
+@media (max-width: 420px) {
+  .auth-card { padding: var(--space-md); }
+  .auth-title { font-size: 1.1rem; }
+}
