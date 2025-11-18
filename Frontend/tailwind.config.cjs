@@ -1,11 +1,5 @@
-module.exports = {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,jsx,ts,tsx}",
-  ],
-  theme: {
-    extend: {},
-  },
-  darkMode: "media",
-  plugins: [],
-};
+const { defineConfig } = require("tailwindcss");
+
+module.exports = defineConfig({
+  content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
+});

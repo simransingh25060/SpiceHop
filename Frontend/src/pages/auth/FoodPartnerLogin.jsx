@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const FoodPartnerLogin = () => {
 
-  const navigate = useNavigate();
+  const navigate = useNavigate(); //hook
 
   const handleSubmit = async (e) => {
     e.preventDefault();  

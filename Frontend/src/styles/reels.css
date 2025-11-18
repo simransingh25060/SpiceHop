@@ -1,0 +1,10 @@
+/* Small utility used by the Reels UI to clamp text to two lines */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Ensure video covers its container when using object-cover utility */
+.reel-video { object-fit: cover; }
