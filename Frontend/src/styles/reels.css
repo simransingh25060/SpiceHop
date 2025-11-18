@@ -1,4 +1,4 @@
-/* Small utility used by the Reels UI to clamp text to two lines */
+Small utility used by the Reels UI to clamp text to two lines
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;

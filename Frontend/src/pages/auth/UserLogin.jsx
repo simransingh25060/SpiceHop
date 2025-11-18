@@ -26,7 +26,7 @@ const UserLogin = () => {
       };
 
   return (
-    <div className="auth-page-wrapper min-h-screen flex items-center justify-center p-6 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <div className="auth-page-wrapper min-h-screen flex items-center justify-center p-6 bg-red-500 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
 
       <div className="auth auth-card bg-white dark:bg-gray-800 shadow-lg border border-gray-200 dark:border-gray-700 rounded-xl p-6 w-full max-w-md">
 

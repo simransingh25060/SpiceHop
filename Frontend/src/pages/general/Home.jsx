@@ -39,11 +39,15 @@ const Home = () => {
   }, [videos]);
 
   useEffect(() => {
-    axios.get("http://localhost:3000/api/food"),{withCredentials: true}
-    .then(response => {
-        setVideos(response.data.foodItems)
-    })
-  })
+   axios.get("http://localhost:3000/api/food", {
+  withCredentials: true
+})
+.then(response => {
+  setVideos(response.data.foodItems);
+});
+    },[]); 
+
+
 
   return (
     <div
@@ -77,3 +81,5 @@ const Home = () => {
 };
 
 export default Home;
+
+
