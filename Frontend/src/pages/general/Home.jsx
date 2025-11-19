@@ -29,10 +29,10 @@ const Home = () => {
           }
         });
       },
-      { threshold: 0.6 } // play only when 60% visible
+      [videos] 
     );
 
-    // Observe all videos
+
     videoRefs.current.forEach((video) => observer.observe(video));
 
     return () => observer.disconnect();
@@ -69,8 +69,8 @@ const Home = () => {
           <div className="reel-overlay">
             <div className="reel-overlay-gradient" aria-hidden="true"/>
             <div  className="reel-content">
-                <p className="reel-description" title={item.description}>{item.description}</p>
-                <Link className="reel-btn" to={"/food-partner/" + item.foodPartner} aria-label= "Visit store">Visit store</Link>
+                <p className="reel-description font-bold " title={item.description}>{item.description}</p>
+                <Link className="reel-btn px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 active:scale-[.98] transition-all " to={"/food-partner/" + item.foodPartner} aria-label= "Visit store"> Visit store </Link>
             </div>
           </div>
         </section>
