@@ -1,6 +1,6 @@
 @import './theme.css';
 
-/* Layout container */
+
 .profile-page {
   max-width: 1100px;
   margin: 0 auto;
@@ -10,7 +10,7 @@
   gap: var(--space-6);
 }
 
-/* Header block */
+
 .profile-header {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -38,9 +38,13 @@
   border: 2px solid var(--color-border);
 }
 
-.profile-info { display: grid; gap: var(--space-3); }
+.profile-info {
+  display: grid;
+  gap: var(--space-3);
+  color: #fff;
+}
 
-/* Pills */
+
 .profile-pill {
   display: inline-flex;
   align-items: center;
@@ -56,7 +60,7 @@
 .profile-business { font-size: 1.25rem; font-weight: 700; }
 .profile-address { font-size: 1.05rem; color: var(--color-text-secondary); }
 
-/* Stats */
+
 .profile-stats {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -82,14 +86,14 @@
   font-weight: 800;
 }
 
-/* Separator line under header (as in wireframe) */
+
 .profile-sep {
   height: 1px;
   border: none;
   background: var(--color-border);
 }
 
-/* Grid of videos */
+
 .profile-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -108,7 +112,7 @@
   font-size: 1.5rem;
 }
 
-/* Responsive tweaks */
+
 @media (max-width: 900px) {
   .profile-meta { grid-template-columns: 96px 1fr; }
   .profile-avatar { width: 96px; height: 96px; }
