@@ -27,49 +27,65 @@ async function createFood(req, res) {
 
 async function  getFoodItems(req, res) {
     const foodItems = await foodModel.find({})
+    
+    // Get the user's liked videos
+    const userLikes = await likeModel.find({ user: req.user._id }).select('food');
+    const likedVideos = userLikes.map(like => like.food.toString());
+    
     res.status(200).json({
         message: "Food Items fetched successfully",
-        foodItems
+        foodItems,
+        likedVideos
     })
-
 }
 
 async function likeFood(req, res) {
 
-    const { foodId } = req.body;
+    const { id } = req.body;
     const user = req.user;
 
     const isAlreadyLiked = await likeModel.findOne({ 
         user: user._id,
-        food: foodId 
+        food: id 
     });
 
     if (isAlreadyLiked) {
         await likeModel.deleteOne({
             user: user._id,
-            food: foodId
+            food: id
         })
 
-        await foodModel.findByIdAndUpdate(foodId, {
-            $inc: { likeCount: -1 }
-        })
+        const updatedFood = await foodModel.findByIdAndUpdate(
+            id,
+            { 
+                $inc: { likeCount: -1 },
+                $max: { likeCount: 0 }
+            },
+            { new: true }
+        )
 
         return res.status(200).json({
-            message: "Food unliked successfully"
+            message: "Food unliked successfully",
+            liked: false,
+            likeCount: Math.max(0, updatedFood.likeCount || 0)
         })
     }
 
     const like = await likeModel.create({
         user: user._id,
-        food: foodId
+        food: id
     })
 
-    await foodModel.findByIdAndUpdate(foodId, {
-        $inc: { likeCount: 1 }
-    })
+    const updatedFood = await foodModel.findByIdAndUpdate(
+        id,
+        { $inc: { likeCount: 1 } },
+        { new: true }
+    )
 
     res.status(201).json({
         message: "Food liked successfully",
+        liked: true,
+        likeCount: updatedFood.likeCount || 1,
         like
     })
     
