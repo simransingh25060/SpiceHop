@@ -89,6 +89,42 @@ function logoutUser(req, res) {
     });
 
 }
+async function getUserProfile(req, res) {
+    try {
+        const user = req.user;
+        
+        if (!user) {
+            return res.status(401).json({
+                message: "User not found"
+            });
+        }
+
+        // Import models inline to get stats
+        const likeModel = require('../models/likes.model');
+        const saveModel = require('../models/save.model');
+
+        // Get counts
+        const likedCount = await likeModel.countDocuments({ user: user._id });
+        const savedCount = await saveModel.countDocuments({ user: user._id });
+
+        res.status(200).json({
+            _id: user._id,
+            email: user.email,
+            name: user.fullName,
+            fullName: user.fullName,
+            createdAt: user.createdAt,
+            stats: {
+                liked: likedCount,
+                saved: savedCount
+            }
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: "Error fetching user profile",
+            error: error.message
+        });
+    }
+}
 
 
 async function registerFoodPartner(req, res) {
@@ -190,7 +226,8 @@ module.exports = {
     logoutUser,
     registerFoodPartner,
     loginFoodPartner,
-    logoutFoodPartner
+    logoutFoodPartner,
+    getUserProfile
 }
 
 

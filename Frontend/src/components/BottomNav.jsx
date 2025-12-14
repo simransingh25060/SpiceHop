@@ -20,6 +20,14 @@ const BottomNav = ({ active }) => {
         <span className="nav-icon">🔖</span>
         <span className="nav-label">saved</span>
       </Link>
+
+      <Link
+        to="/user"
+        className={`nav-item ${active === "user" ? "nav-item-active" : ""}`}
+      >
+        <span className="nav-icon">👤</span>
+        <span className="nav-label">user</span>
+      </Link>
     </nav>
   );
 };

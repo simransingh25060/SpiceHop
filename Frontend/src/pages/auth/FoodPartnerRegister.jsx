@@ -1,148 +1,136 @@
 import React from "react";
-import "../../styles/theme.css";
+import "../../styles/user-profile.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const FoodPartnerRegister = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const businessName = e.target.businessName.value;
+      const contactName = e.target.contactName.value;
+      const phone = e.target.phone.value;
+      const email = e.target.email.value;
+      const password = e.target.password.value;
+      const address = e.target.address.value;
 
-    const businessName = e.target.businessName.value;
-    const contactName = e.target.contactName.value;
-    const phone = e.target.phone.value;  
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-    const address = e.target.address.value;
-
-    axios.post("http://localhost:3000/api/auth/food-partner/register", {
-      name: businessName,
-      contactName,
-      phone,
-      email,
-      password,
-      address
-            }, {
-              withCredentials: true})
-            .then(response => {
-            console.log(response.data);      
-            navigate("/create-food"); 
-
-            })
-            .catch(error => {
-              console.error("There was an error registering!");
-            });
-        
-          };
+      const response = await axios.post("http://localhost:3000/api/auth/food-partner/register", {
+        name: businessName,
+        contactName,
+        phone,
+        email,
+        password,
+        address
+      }, {
+        withCredentials: true
+      });
+      console.log(response.data);
+      navigate("/partner-profile");
+    } catch (error) {
+      console.error("Registration error:", error);
+      alert("Registration failed. Please try again.");
+    }
+  };
     
 
   return (
-    <div className="auth-page-wrapper min-h-screen flex items-center justify-center p-6 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-
-      <div className="auth auth-card bg-white dark:bg-gray-800 shadow-lg border border-gray-200 dark:border-gray-700 rounded-xl p-6 w-full max-w-md">
-
-        <header className="mb-4">
-          <h2 className="text-lg font-semibold">Partner Sign up</h2>
+    <div className="reels-page">
+      <div className="phone-frame">
+        <header className="phone-header">
+          <div className="header-content">
+            <h1 className="brand-name">Partner Sign Up</h1>
+          </div>
         </header>
 
-        <form className="w-full" onSubmit={handleSubmit}>
+        <main className="phone-main">
+          <div className="user-auth-form-container">
+            <form className="user-auth-form" onSubmit={handleSubmit}>
+              <div className="auth-form-header">
+                <h2>Create partner account</h2>
+                <p>Join SpiceHop as a food partner</p>
+              </div>
 
-          <label className="block text-sm text-gray-500 dark:text-gray-400 mb-2">
-            Business name
-            <input
-              id="businessName"
-              name="businessName"
-              type="text"
-              placeholder="Example Bites"
-              className="businessName sh-input mt-1 block w-full h-11 px-3 rounded-lg border border-gray-200 
-                         dark:border-gray-700 bg-transparent text-gray-900 dark:text-gray-100"
-            />
-          </label>
+              <div className="form-group">
+                <label htmlFor="businessName">Business name</label>
+                <input
+                  id="businessName"
+                  name="businessName"
+                  type="text"
+                  placeholder="Example Bites"
+                  required
+                />
+              </div>
 
-          <label className="block text-sm text-gray-500 dark:text-gray-400 mb-2">
-            Contact name
-            <input
-              id="contactName"
-              name="contactName"
-              type="text"
-              placeholder="Full name"
-              className="contactName sh-input mt-1 block w-full h-11 px-3 rounded-lg border border-gray-200 
-                         dark:border-gray-700 bg-transparent text-gray-900 dark:text-gray-100"
-            />
-          </label>
+              <div className="form-group">
+                <label htmlFor="contactName">Contact name</label>
+                <input
+                  id="contactName"
+                  name="contactName"
+                  type="text"
+                  placeholder="Full name"
+                  required
+                />
+              </div>
 
-          <label className="block text-sm text-gray-500 dark:text-gray-400 mb-2">
-            Phone
-            <input
-              id="phone"
-              name="phone"
-              type="tel"
-              placeholder="(+1) 555-555-555"
-              className="phone sh-input mt-1 block w-full h-11 px-3 rounded-lg border border-gray-200 
-                         dark:border-gray-700 bg-transparent text-gray-900 dark:text-gray-100"
-            />
-          </label>
+              <div className="form-group">
+                <label htmlFor="phone">Phone</label>
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  placeholder="(+1) 555-555-555"
+                  required
+                />
+              </div>
 
-          <label className="block text-sm text-gray-500 dark:text-gray-400 mb-2">
-            Email
-            <input
-              id="email"
-              name="email"
-              type="email"
-              placeholder="partner@example.com"
-              className="email sh-input mt-1 block w-full h-11 px-3 rounded-lg border border-gray-200 
-                         dark:border-gray-700 bg-transparent text-gray-900 dark:text-gray-100"
-            />
-          </label>
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="partner@example.com"
+                  required
+                />
+              </div>
 
-          <label className="block text-sm text-gray-500 dark:text-gray-400 mb-2">
-            Password
-            <input
-              id="password"
-              name="password"
-              type="password"
-              placeholder="••••••••"
-              className="password sh-input mt-1 block w-full h-11 px-3 rounded-lg border border-gray-200 
-                         dark:border-gray-700 bg-transparent text-gray-900 dark:text-gray-100"
-            />
-          </label>
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  placeholder="••••••••"
+                  required
+                />
+              </div>
 
-          <label className="block text-sm text-gray-500 dark:text-gray-400 mb-2">
-            Address
-            <input
-              id="address"
-              name="address"
-              type="text"
-              placeholder="123 Main St, City, State ZIP"
-              className="address sh-input mt-1 block w-full h-11 px-3 rounded-lg border border-gray-200 
-                         dark:border-gray-700 bg-transparent text-gray-900 dark:text-gray-100"
-            />
-          </label>
+              <div className="form-group">
+                <label htmlFor="address">Address</label>
+                <input
+                  id="address"
+                  name="address"
+                  type="text"
+                  placeholder="123 Main St, City, State ZIP"
+                  required
+                />
+              </div>
 
-          <button
-            className="w-full rounded-lg py-3 mt-3 font-semibold"
-            style={{
-              background: "var(--accent)",
-              color: "var(--accent-contrast)",
-            }}
-          >
-            Create partner account
-          </button>
-        </form>
+              <button type="submit" className="user-btn user-btn-primary">
+                Create Partner Account
+              </button>
 
-        {/* SIGN IN OPTION BELOW */}
-        <p className="text-center text-sm mt-4 text-gray-600 dark:text-gray-400">
-          Already have an account?{" "}
-          <a
-            href="/food-partner/login"
-            className="font-medium"
-            style={{ color: "var(--accent)" }}
-          >
-            Sign in
-          </a>
-        </p>
-
+              <p className="auth-switch-text">
+                Already have an account?{" "}
+                <a href="/food-partner/login" className="auth-switch-btn">
+                  Sign in
+                </a>
+              </p>
+            </form>
+          </div>
+        </main>
       </div>
     </div>
   );
