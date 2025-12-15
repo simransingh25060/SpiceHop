@@ -2,9 +2,7 @@
 const express = require('express');
 const authController = require('../controllers/auth.controller');
 const { authUserMiddleware } = require('../middlewares/auth.middleware');
-const multer = require('multer');
-// memory storage so uploaded file buffer is available to controller
-const upload = multer({ storage: multer.memoryStorage() });
+const { upload } = require('../middlewares/upload.middleware');
 
 const router = express.Router();
 

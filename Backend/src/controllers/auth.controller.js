@@ -18,33 +18,8 @@ async function updateUser(req, res) {
     if (req.body.email) update.email = req.body.email;
 
 
-    if (req.file && req.file.buffer) {
-      try 
-      {
-        console.log(req.file)
-        const image = req.file.buffer;
-        console.log(image)
-        const uploaded = await cloudinary.uploader.upload(
-          {
-           image
-          },
-
-          async (error, result) => {
-            if (error) {
-              console.error("Cloudinary upload error:", error);
-              return;
-            }
-
-         
-            update.profilePic = result.secure_url;
-            console.log(update);
-          }
-        );
-
-        uploaded.end(req.file.buffer);
-      } catch (err) {
-        console.error("Image upload failed:", err);
-      }
+    if (req.file && req.file.path) {
+      update.profilePic = req.file.path;
     }
 
     if (Object.keys(update).length === 0) {
