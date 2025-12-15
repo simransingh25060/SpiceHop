@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../../styles/user-profile.css";
 import BottomNav from "../../components/BottomNav";
+import { Link } from "react-router-dom";
 
 const User = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -369,17 +370,25 @@ const User = () => {
   }
 
   // If logged in, show user profile
-  return (
-    <div className="reels-page">
-      <div className="phone-frame">
-        <header className="phone-header">
-          <h1>Profile</h1>
-        </header>
+ return (
+  <div className="reels-page">
+    <div className="phone-frame">
+      <header className="phone-header">
+        <h1>Profile</h1>
+      </header>
 
-        <main className="phone-main">
-          <div className="user-profile-container">
-            <div className="user-profile-header">
-              <div className="user-avatar">
+      <main className="phone-main">
+        <div className="user-profile-container">
+
+          <div className="user-profile-header">
+            <div className="user-avatar">
+              {userData?.profilePic ? (
+                <img
+                  src={userData.profilePic}
+                  alt="avatar"
+                  style={{ width: '96px', height: '96px', borderRadius: '50%', objectFit: 'cover' }}
+                />
+              ) : (
                 <svg
                   width="64"
                   height="64"
@@ -391,76 +400,81 @@ const User = () => {
                   <circle cx="12" cy="8" r="5" />
                   <path d="M3 21c0-4.4 3.6-8 8-9 4.4 1 8 4.6 8 9" />
                 </svg>
-              </div>
-              <h2 className="user-name">{userData?.name || "User"}</h2>
-              <p className="user-email">{userData?.email}</p>
+              )}
             </div>
-
-            <div className="user-stats">
-              <div className="user-stat-item">
-                <span className="stat-value">{userData?.stats?.saved || 0}</span>
-                <span className="stat-label">Saved</span>
-              </div>
-              <div className="user-stat-item">
-                <span className="stat-value">{userData?.stats?.liked || 0}</span>
-                <span className="stat-label">Liked</span>
-              </div>
-            </div>
-
-            <div className="user-menu">
-              <button className="user-menu-item">
-                <span className="menu-icon">👤</span>
-                <span className="menu-text">Edit Profile</span>
-                <span className="menu-arrow">›</span>
-              </button>
-
-              <button className="user-menu-item">
-                <span className="menu-icon">⚙️</span>
-                <span className="menu-text">Settings</span>
-                <span className="menu-arrow">›</span>
-              </button>
-
-              <button className="user-menu-item">
-                <span className="menu-icon">🔔</span>
-                <span className="menu-text">Notifications</span>
-                <span className="menu-arrow">›</span>
-              </button>
-
-              <button className="user-menu-item">
-                <span className="menu-icon">❓</span>
-                <span className="menu-text">Help & Support</span>
-                <span className="menu-arrow">›</span>
-              </button>
-
-              <button className="user-menu-item">
-                <span className="menu-icon">ℹ️</span>
-                <span className="menu-text">About SpiceHop</span>
-                <span className="menu-arrow">›</span>
-              </button>
-            </div>
-
-            <button className="user-btn user-btn-logout" onClick={handleLogout}>
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                <polyline points="16 17 21 12 16 7" />
-                <line x1="21" y1="12" x2="9" y2="12" />
-              </svg>
-              <span>Log Out</span>
-            </button>
+            <h2 className="user-name">{userData?.name || "User"}</h2>
+            <p className="user-email">{userData?.email}</p>
           </div>
-        </main>
 
-        <BottomNav active="user" />
-      </div>
+          <div className="user-stats">
+            <div className="user-stat-item">
+              <span className="stat-value">{userData?.stats?.saved || 0}</span>
+              <span className="stat-label">Saved</span>
+            </div>
+            <div className="user-stat-item">
+              <span className="stat-value">{userData?.stats?.liked || 0}</span>
+              <span className="stat-label">Liked</span>
+            </div>
+          </div>
+
+          {/* FIXED MENU WRAPPER */}
+          <div className="user-menu">
+
+            <Link to="/edit-profile" className="user-menu-item">
+              <span className="menu-icon">👤</span>
+              <span className="menu-text">Edit Profile</span>
+              <span className="menu-arrow">›</span>
+            </Link>
+
+            <button className="user-menu-item">
+              <span className="menu-icon">⚙️</span>
+              <span className="menu-text">Settings</span>
+              <span className="menu-arrow">›</span>
+            </button>
+
+            <button className="user-menu-item">
+              <span className="menu-icon">🔔</span>
+              <span className="menu-text">Notifications</span>
+              <span className="menu-arrow">›</span>
+            </button>
+
+            <button className="user-menu-item">
+              <span className="menu-icon">❓</span>
+              <span className="menu-text">Help & Support</span>
+              <span className="menu-arrow">›</span>
+            </button>
+
+            <button className="user-menu-item">
+              <span className="menu-icon">ℹ️</span>
+              <span className="menu-text">About SpiceHop</span>
+              <span className="menu-arrow">›</span>
+            </button>
+
+          </div> {/* THIS DIV WAS FIXED AND WRAPS ALL MENU ITEMS */}
+
+          <button className="user-btn user-btn-logout" onClick={handleLogout}>
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
+            </svg>
+            <span>Log Out</span>
+          </button>
+
+        </div>
+      </main>
+
+      <BottomNav active="user" />
     </div>
-  );
+  </div>
+);
 };
 
 export default User;

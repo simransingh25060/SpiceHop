@@ -4,6 +4,7 @@ const authRoutes = require('./routes/auth.routes');
 const foodRoutes = require('./routes/food.routes');
 const foodPartnerRoutes = require('./routes/food-partner.routes');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 app.use(cors({
@@ -12,6 +13,9 @@ app.use(cors({
 }));
 app.use(cookieParser()); //middleware to parse cookies
 app.use(express.json());  //middleware- data in req.body to make it readable
+
+// serve uploads saved locally (used when ImageKit not configured)
+app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 
 
 app.get('/', (req, res) => {

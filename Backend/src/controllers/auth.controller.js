@@ -1,7 +1,48 @@
+const fs = require('fs');
+const path = require('path');
 const userModel = require('../models/user.model');
 const foodPartnerModel = require("../models/foodpartner.model")
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+
+// Update user profile (name, email, optional profilePic in req.file)
+async function updateUser(req, res) {
+    try {
+        const user = req.user;
+        if (!user) return res.status(401).json({ message: 'Not authenticated' });
+
+        const update = {};
+        if (req.body.name) update.fullName = req.body.name;
+        if (req.body.email) update.email = req.body.email;
+
+        if (req.file && req.file.buffer) {
+            // Save file locally to /uploads and set profilePic to served URL
+            try {
+                const uploadsDir = path.join(__dirname, '..', '..', 'uploads');
+                if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
+                const ext = req.file.mimetype && req.file.mimetype.split('/') ? `.${req.file.mimetype.split('/')[1]}` : '';
+                const safeName = `profile-${user._id}-${Date.now()}${ext}`;
+                const outPath = path.join(uploadsDir, safeName);
+                fs.writeFileSync(outPath, req.file.buffer);
+                const baseUrl = process.env.UPLOADS_URL || `http://localhost:${process.env.PORT || 3000}`;
+                update.profilePic = `${baseUrl}/uploads/${safeName}`;
+            } catch (uploadErr) {
+                console.error('Local image save failed:', uploadErr);
+                // continue without failing the whole request
+            }
+        }
+
+        if (Object.keys(update).length === 0) {
+            return res.status(400).json({ message: 'No update fields provided' });
+        }
+
+        const updated = await userModel.findByIdAndUpdate(user._id, update, { new: true });
+        return res.status(200).json({ message: 'Profile updated', user: updated });
+    } catch (err) {
+        console.error('updateUser error', err);
+        return res.status(500).json({ message: 'Error updating profile', error: err.message });
+    }
+}
 
 
 async function registerUser(req, res) {
@@ -109,6 +150,7 @@ async function getUserProfile(req, res) {
 
         res.status(200).json({
             _id: user._id,
+            profilePic: user.profilePic || null,
             email: user.email,
             name: user.fullName,
             fullName: user.fullName,
@@ -228,7 +270,10 @@ module.exports = {
     loginFoodPartner,
     logoutFoodPartner,
     getUserProfile
+    ,
+    updateUser
 }
+
 
 
 

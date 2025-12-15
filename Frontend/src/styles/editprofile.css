@@ -1,0 +1,99 @@
+.edit-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.edit-card {
+  width: 100%;
+  max-width: 420px;
+  background: white;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  border-radius: 16px;
+  padding: 25px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.edit-title {
+  text-align: center;
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+}
+
+.edit-photo-section {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.edit-photo {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #2563eb;
+}
+
+.edit-photo-placeholder {
+  width: 110px;
+  height: 110px;
+  background: #e5e5e5;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+}
+
+.upload-btn {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  background: #2563eb;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.upload-btn input {
+  display: none;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.edit-field label {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.edit-field input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.save-btn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.save-btn:hover {
+  background: #1d4ed8;
+}
