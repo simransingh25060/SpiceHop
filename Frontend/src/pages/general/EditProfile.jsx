@@ -16,7 +16,7 @@ const EditProfile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/auth/user/me", { withCredentials: true });
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/auth/user/me`, { withCredentials: true });
         if (res?.data) {
           setName(res.data.name || "");
           setEmail(res.data.email || "");
@@ -50,7 +50,7 @@ const EditProfile = () => {
     if (profilePic) formData.append("profilePic", profilePic);
 
     try {
-      await axios.put("http://localhost:3000/api/auth/user/update", formData, {
+      await axios.put(`${import.meta.env.VITE_API_URL}/api/auth/user/update`, formData, {
         withCredentials: true,
         headers: { "Content-Type": "multipart/form-data" },
       });

@@ -44,7 +44,7 @@ const Save = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/food", { withCredentials: true })
+      .get(`${import.meta.env.VITE_API_URL}/api/food`, { withCredentials: true })
       .then((response) => {
         const savedVideos = response.data.savedVideos || [];
         const foodItems = response.data.foodItems || [];
@@ -85,8 +85,7 @@ const Save = () => {
 
     // Sync with backend
     try {
-      await axios.post(
-        `http://localhost:3000/api/food/save`,
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/food/save`,
         { foodId: id },
         { withCredentials: true }
       );
@@ -109,8 +108,7 @@ const Save = () => {
     );
 
     try {
-      const response = await axios.post(
-        `http://localhost:3000/api/food/like`,
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/food/like`,
         { id },
         { withCredentials: true }
       );

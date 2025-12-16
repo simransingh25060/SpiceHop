@@ -20,7 +20,7 @@ const User = () => {
   const checkAuthStatus = async () => {
     try {
       // Try to fetch user data to verify if logged in
-      const response = await axios.get("http://localhost:3000/api/auth/user/me", {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/auth/user/me`, {
         withCredentials: true,
       });
       
@@ -39,8 +39,7 @@ const User = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.post(
-        "http://localhost:3000/api/auth/user/logout",
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/user/logout`,
         {},
         { withCredentials: true }
       );
@@ -59,8 +58,7 @@ const User = () => {
       const email = e.target.email.value;
       const password = e.target.password.value;
 
-      const response = await axios.post(
-        "http://localhost:3000/api/auth/user/login",
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/user/login`,
         { email, password },
         { withCredentials: true }
       );
@@ -82,8 +80,7 @@ const User = () => {
       const email = e.target.email.value;
       const password = e.target.password.value;
 
-      const response = await axios.post(
-        "http://localhost:3000/api/auth/user/register",
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/user/register`,
         {
           fullName: firstName + " " + lastName,
           email,

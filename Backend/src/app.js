@@ -8,7 +8,7 @@ const path = require('path');
 
 const app = express();
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: ["http://localhost:5173", "https://spice-hop-frontend.vercel.app"],
   credentials: true
 }));
 app.use(cookieParser()); //middleware to parse cookies

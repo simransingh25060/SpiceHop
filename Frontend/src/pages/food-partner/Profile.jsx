@@ -16,7 +16,7 @@ const Profile = () => {
         // If no id param, it's the logged-in partner's own profile
         if (!id) {
             // Fetch own profile
-            axios.get('http://localhost:3000/api/food-partner/me', { withCredentials: true })
+            axios.get(`${import.meta.env.VITE_API_URL}/api/food-partner/me`, { withCredentials: true })
                 .then(response => {
                     setProfile(response.data.foodPartner)
                     setVideos(response.data.foodPartner.foodItems || [])
@@ -29,7 +29,7 @@ const Profile = () => {
                 })
         } else {
             // Fetch other partner's profile
-            axios.get(`http://localhost:3000/api/food-partner/${id}`, { withCredentials: true })
+            axios.get(`${import.meta.env.VITE_API_URL}/api/food-partner/${id}`, { withCredentials: true })
                 .then(response => {
                     setProfile(response.data.foodPartner)
                     setVideos(response.data.foodPartner.foodItems || [])
@@ -45,8 +45,7 @@ const Profile = () => {
 
     const handleLogout = async () => {
         try {
-            await axios.post(
-                'http://localhost:3000/api/auth/food-partner/logout',
+            await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/food-partner/logout`,
                 {},
                 { withCredentials: true }
             )

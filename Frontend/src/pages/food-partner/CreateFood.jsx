@@ -75,7 +75,7 @@ const CreateFood = () => {
         formData.append('description', description);
         formData.append('video', videoFile);  // your original key unchanged
 
-        const response = await axios.post("http://localhost:3000/api/food", formData, {
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/food`, formData, {
             withCredentials: true,
         });
 
