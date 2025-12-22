@@ -72,7 +72,11 @@ const user = await userModel.create({
 const token = jwt.sign({
     id:user._id,
 }, process.env.JWT_SECRET)
-res.cookie("token", token )
+res.cookie("token", token, {
+    httpOnly: true,
+    secure: true, // set to true in production (HTTPS)
+    sameSite: "None"
+});
 
 res.status(201).json({
     message: "User registered successfully",
@@ -110,7 +114,11 @@ const token = jwt.sign({
     id: user._id,   
     }, process.env.JWT_SECRET)
 
-res.cookie("token", token)
+res.cookie("token", token, {
+    httpOnly: true,
+    secure: true, // set to true in production (HTTPS)
+    sameSite: "None"
+});
 
 res.status(200).json({
     message: "User logged in successfully",
@@ -199,7 +207,11 @@ async function registerFoodPartner(req, res) {
         id: foodPartner._id,
     }, process.env.JWT_SECRET)
 
-    res.cookie("token", token)
+    res.cookie("token", token, {
+        httpOnly: true,
+        secure: true, // set to true in production (HTTPS)
+        sameSite: "None"
+    });
 
     res.status(201).json({
         message: "Food partner registered successfully",
@@ -242,7 +254,11 @@ async function loginFoodPartner(req, res) {
         id: foodPartner._id,
     }, process.env.JWT_SECRET)
 
-    res.cookie("token", token)
+    res.cookie("token", token, {
+        httpOnly: true,
+        secure: true, // set to true in production (HTTPS)
+        sameSite: "None"
+    });
 
     res.status(201).json({
         message: "Food partner logged in successfully",
@@ -284,4 +300,4 @@ module.exports = {
 //to know request of user- token - saved in cookies- 
 // 1.jsonwebtoken to create , 2.cookieparser(used as middleware)
 
-//*one export in one file so, export multiple controller in object 
+//*one export in one file so, export multiple controller in object
