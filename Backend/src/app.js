@@ -5,7 +5,6 @@ const foodRoutes = require('./routes/food.routes');
 const foodPartnerRoutes = require('./routes/food-partner.routes');
 const cors = require('cors');
 const path = require('path');
-require('dotenv').config();
 
 const app = express();
 const allowedOrigins = process.env.CORS_ORIGINS

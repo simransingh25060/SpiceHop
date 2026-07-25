@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const userModel = require('../models/user.model');
-const foodPartnerModel = require("../models/foodpartner.model")
+const foodPartnerModel = require("../models/foodpartner.model");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cloudinary = require('cloudinary').v2;
@@ -11,7 +11,6 @@ async function updateUser(req, res) {
     const user = req.user;
     if (!user) return res.status(401).json({ message: 'Not authenticated' });
     
-
     const update = {};
 
     if (req.body.name) update.fullName = req.body.name;
